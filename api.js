@@ -89,24 +89,25 @@ async function apiRequest(endpoint, options = {}) {
   }
 }
 
-// Auth API Functions
-async function login(username, password) {
+// Login: allow username OR email
+async function login(identifier, password) {
   const response = await apiRequest('/login', {
     method: 'POST',
-    body: JSON.stringify({ email: username, password }),
+    body: JSON.stringify({ username: identifier, email: identifier, password }),
     skipAuth: true
   });
   if (response.token) {
     saveToken(response.token);
-    saveUser({ username, email: username });
+    saveUser({ username: identifier, email: identifier });
   }
   return response;
 }
 
+// Register: send username + email + password
 async function register(username, email, password) {
   const response = await apiRequest('/register', {
     method: 'POST',
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ username, email, password }),
     skipAuth: true
   });
   if (response.token) {
