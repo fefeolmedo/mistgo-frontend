@@ -28,7 +28,7 @@ jobs:
           action: "upload"
           app_location: "/"          # your static files live at repo root
           output_location: "/"       # artifacts are the same folder
-          skip_app_build: true       # <— add this line
+          skip_app_build: true       # add this line
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
